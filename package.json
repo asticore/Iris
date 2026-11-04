@@ -1,0 +1,12 @@
+{
+  "name": "iris",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tweakable base icons and alphabet. Export fonts, SVG, PNG and a FontAwesome-style kit.",
+  "license": "MIT",
+  "scripts": {
+    "start": "npx http-server web -p 8080",
+    "check": "node tools/check-data.js web/data/*.js && node tools/test.js"
+  },
+  "devDependencies": { "opentype.js": "1.3.4" }
+}
