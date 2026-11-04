@@ -12,7 +12,7 @@
     ["c", 43,46,3,1], ["c", 57,46,3,1],
     ["c", 50,58,5,1]
   ] },
-  fish: { l: "Fish", t: "sea ocean water aquatic swim seafood", s: [
+  fish: { l: "Fish", t: "sea ocean water aquatic swim", s: [
     ["s", ["arc",44,50,30,18,0,360]],
     ["s", [72,46], [86,32], [86,68], [72,54]],
     ["s", [38,32], [46,20], [56,32]],
@@ -107,7 +107,7 @@
     ["c", 48,46,3,1],
     ["c", 78,48,2,1]
   ] },
-  dove: { l: "Dove", t: "pigeon peace bird wings dove symbol", s: [
+  dove: { l: "Dove", t: "pigeon peace bird wings symbol", s: [
     ["s", ["arc",56,58,26,16,0,360]],
     ["c", 34,42,9,0],
     ["s", [25,42], [16,46], [25,48]],
@@ -134,7 +134,7 @@
     ["c", 22,48,2,1],
     ["s", [86,58], [88,50]]
   ] },
-  "kiwi-bird": { l: "Kiwi Bird", t: "kiwi new zealand flightless bird beak", s: [
+  "kiwi-bird": { l: "Kiwi Bird", t: "kiwi flightless new zealand beak", s: [
     ["s", ["arc",44,62,26,20,0,360]],
     ["c", 64,40,12,0],
     ["s", [74,46], [88,64]],
@@ -153,7 +153,7 @@
     ["c", 72,30,12,0],
     ["s", [83,27], [88,31], [83,35]],
     ["c", 70,27,2.5,1],
-    ["s", [10,84], [24,80], [38,84], [52,80], [66,84], [80,80]]
+    ["s", [12,84], [24,80], [38,84], [52,80], [66,84], [80,80]]
   ] },
   elephant: { l: "Elephant", t: "mammal trunk safari big ivory", s: [
     ["c", 58,48,30,0],
@@ -163,7 +163,7 @@
     ["s", [66,74], [66,86]], ["s", [80,70], [80,84]],
     ["c", 36,40,2.5,1]
   ] },
-  giraffe: { l: "Giraffe", t: "tall neck spots africa animal safari", s: [
+  giraffe: { l: "Giraffe", t: "tall neck spots africa safari", s: [
     ["s", ["arc",72,30,14,9,0,360]],
     ["s", [64,38], [58,60], [52,88]],
     ["s", [60,26], [46,50], [38,88]],
@@ -198,14 +198,14 @@
     ["c", 38,50,3,1], ["c", 62,50,3,1],
     ["c", 50,70,4,1]
   ] },
-  lion: { l: "Lion", t: "king mane big cat roar safari", s: [
+  lion: { l: "Lion", t: "king mane big cat roar", s: [
     ["s", ["arc",50,50,36,36,0,360]],
     ["c", 50,52,20,0],
     ["f", [46,56], [54,56], [50,62], "z"],
     ["s", [50,62], [50,68]], ["s", [42,70], [50,68], [58,70]],
     ["c", 42,46,3,1], ["c", 58,46,3,1]
   ] },
-  tiger: { l: "Tiger", t: "big cat stripes wild jungle animal", s: [
+  tiger: { l: "Tiger", t: "big cat stripes jungle wild", s: [
     ["c", 50,52,30,0],
     ["s", ["arc",50,64,14,10,0,360]],
     ["c", 50,58,4,1],
@@ -227,7 +227,7 @@
     ["f", [46,44], [54,44], [50,50], "z"],
     ["s", [26,54], [14,66], [20,74]], ["s", [74,54], [86,66], [80,74]]
   ] },
-  chicken: { l: "Chicken", t: "hen rooster poultry farm egg bird", s: [
+  chicken: { l: "Chicken", t: "hen rooster poultry farm egg", s: [
     ["c", 62,36,14,0],
     ["s", [52,26], [56,16], [62,22], [68,14], [72,22]],
     ["f", [74,32], [86,36], [74,40], "z"],
@@ -236,13 +236,13 @@
     ["c", 66,32,2,1],
     ["s", [40,82], [40,88]], ["s", [52,82], [52,88]]
   ] },
-  sheep: { l: "Sheep", t: "lamb wool ewe farm baa fluffy", s: [
+  sheep: { l: "Sheep", t: "lamb wool ewe farm fluffy", s: [
     ["c", 36,50,14,0], ["c", 56,44,14,0], ["c", 50,62,12,0],
     ["c", 76,46,8,0],
     ["c", 78,44,1.5,1],
     ["s", [36,64], [36,84]], ["s", [58,62], [58,84]]
   ] },
-  deer: { l: "Deer", t: "stag buck antler doe forest elk", s: [
+  deer: { l: "Deer", t: "stag buck antler doe elk", s: [
     ["s", [38,40], [34,22], [24,14]],
     ["s", [34,26], [26,26]],
     ["s", [62,40], [66,22], [76,14]],
@@ -264,16 +264,16 @@
     ["c", 50,46,7,1],
     ["s", [45,42], [42,30], [49,40]], ["s", [55,42], [58,30], [51,40]]
   ] },
-  paw: { l: "Paw", t: "paw print pet animal dog cat track", s: [
+  paw: { l: "Paw", t: "paw print pet dog cat", s: [
     ["c", 50,66,18,1],
     ["c", 24,42,8,1], ["c", 42,28,8,1], ["c", 58,28,8,1], ["c", 76,42,8,1]
   ] },
-  "bone-dog": { l: "Dog Bone", t: "dog treat chew bone pet reward", s: [
+  "bone-dog": { l: "Dog Bone", t: "dog treat chew bone reward", s: [
     ["r", 26,42,48,16,1],
     ["c", 23,35,11,1], ["c", 23,65,11,1],
     ["c", 77,35,11,1], ["c", 77,65,11,1]
   ] },
-  "fish-fins": { l: "Fish Fins", t: "fish fin swim sea aquatic marine", s: [
+  "fish-fins": { l: "Fish Fins", t: "fish fin swim aquatic marine", s: [
     ["s", ["arc",46,50,28,20,0,360]],
     ["s", [70,50], [88,34], [88,66], "z"],
     ["s", [32,32], [40,18], [54,32]],

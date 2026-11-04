@@ -54,7 +54,7 @@
     ["r", 12,14,18,42,0],
     ["s", [30,54],[44,82],[52,82],[50,60],[80,60],[84,50],[76,20],[60,14],[30,14]]
   ] },
-  "hand-wave": { l: "Hand Wave", t: "hello hi greet wave goodbye hand", s: [
+  "hand-wave": { l: "Hand Wave", t: "hello hi greet wave goodbye", s: [
     ["s", [36,70],[18,56]],
     ["s", [36,56],[36,22]], ["s", [48,54],[48,16]],
     ["s", [60,56],[60,20]], ["s", [72,56],[72,28]],
@@ -71,12 +71,12 @@
     ["s", ["arc",50,50,36,36,60,360], [86,64]],
     ["c",50,50,14,0]
   ] },
-  "phone-volume": { l: "Phone Volume", t: "call ring telephone sound handset speaker", s: [
+  "phone-volume": { l: "Phone Volume", t: "call ring telephone sound handset", s: [
     ["s", [22,14],[38,14],[46,40],[36,50],[50,66],[60,56],[86,64],[86,80],[78,88],[62,86],[30,62],[14,30],"z"],
     ["s", ["arc",66,30,10,10,-60,60]],
     ["s", ["arc",66,30,20,20,-60,60]]
   ] },
-  "phone-slash": { l: "Phone Slash", t: "call disabled mute no telephone off", s: [
+  "phone-slash": { l: "Phone Slash", t: "call disabled mute telephone off", s: [
     ["s", [22,14],[38,14],[46,40],[36,50],[50,66],[60,56],[86,64],[86,80],[78,88],[62,86],[30,62],[14,30],"z"],
     ["s", [16,16],[84,84]]
   ] },
@@ -91,7 +91,7 @@
     ["c",56,38,8,0],
     ["s", [44,74],[44,66],[56,58],[68,66],[68,74]]
   ] },
-  "address-card": { l: "Address Card", t: "contact profile id card person details", s: [
+  "address-card": { l: "Address Card", t: "contact profile id card person", s: [
     ["r", 12,24,76,52,0],
     ["c",36,44,8,0],
     ["s", [24,66],[24,62],[36,56],[48,62],[48,66]],
@@ -103,7 +103,7 @@
     ["c",50,46,10,0],
     ["s", [34,74],[34,64],[50,60],[66,64],[66,74]]
   ] },
-  "user-plus": { l: "User Plus", t: "add person new invite create account", s: [
+  "user-plus": { l: "User Plus", t: "add person new invite create", s: [
     ["c",40,36,14,0],
     ["s", [16,84],[16,68],[28,58],[52,58],[64,68],[64,84]],
     ["s", [76,50],[76,74]], ["s", [64,62],[88,62]]
@@ -118,7 +118,7 @@
     ["s", [16,84],[16,68],[28,58],[52,58],[64,68],[64,84]],
     ["s", [66,64],[74,72],[88,54]]
   ] },
-  "user-xmark": { l: "User Xmark", t: "block reject remove person cancel close", s: [
+  "user-xmark": { l: "User Xmark", t: "block reject remove person cancel", s: [
     ["c",40,36,14,0],
     ["s", [16,84],[16,68],[28,58],[52,58],[64,68],[64,84]],
     ["s", [66,54],[86,74]], ["s", [86,54],[66,74]]
@@ -140,18 +140,18 @@
     ["s", [83.9,70.3],[86.9,70.7],[86.9,73.3],[83.9,73.7],[81.6,79.2],[83.5,81.6],[81.6,83.5],[79.2,81.6],[73.7,83.9],[73.3,86.9],[70.7,86.9],[70.3,83.9],[64.8,81.6],[62.4,83.5],[60.5,81.6],[62.4,79.2],[60.1,73.7],[57.1,73.3],[57.1,70.7],[60.1,70.3],[62.4,64.8],[60.5,62.4],[62.4,60.5],[64.8,62.4],[70.3,60.1],[70.7,57.1],[73.3,57.1],[73.7,60.1],[79.2,62.4],[81.6,60.5],[83.5,62.4],[81.6,64.8],"z"],
     ["c",72,72,5,0]
   ] },
-  "user-shield": { l: "User Shield", t: "secure protected privacy guard person verified", s: [
+  "user-shield": { l: "User Shield", t: "secure protected privacy guard verified", s: [
     ["c",34,36,12,0],
     ["s", [12,84],[12,70],[22,60],[40,60],[46,64]],
     ["s", [68,50],[86,56],[86,72],[77,84],[68,88],[59,84],[50,72],[50,56],"z"]
   ] },
-  "user-lock": { l: "User Lock", t: "private secure account locked protected person", s: [
+  "user-lock": { l: "User Lock", t: "private secure locked protected person", s: [
     ["c",34,36,12,0],
     ["s", [12,84],[12,70],[22,60],[44,60],[52,68],[52,76]],
     ["r", 62,58,24,22,1],
     ["s", [68,58],[68,50],["arc",74,50,6,6,180,360],[80,58]]
   ] },
-  "bell-slash": { l: "Bell Slash", t: "mute silent notification off alarm disabled", s: [
+  "bell-slash": { l: "Bell Slash", t: "mute silent notification off disabled", s: [
     ["s", [24,68],[24,44],["arc",50,44,26,26,180,360],[76,68],[82,76],[18,76],"z"],
     ["s", [42,84],[58,84]],
     ["s", [16,16],[84,84]]
@@ -162,7 +162,7 @@
     ["s", ["arc",50,44,36,36,160,200]],
     ["s", ["arc",50,44,36,36,-20,20]]
   ] },
-  "flag-checkered": { l: "Checkered Flag", t: "finish race goal end checkered win", s: [
+  "flag-checkered": { l: "Checkered Flag", t: "finish race goal end win", s: [
     ["s", [20,12],[20,88]],
     ["s", [20,14],[84,14],[84,54],[20,54],"z"],
     ["f", [20,14],[36,14],[36,34],[20,34],"z"],
@@ -170,19 +170,19 @@
     ["f", [36,34],[52,34],[52,54],[36,54],"z"],
     ["f", [68,34],[84,34],[84,54],[68,54],"z"]
   ] },
-  "signature": { l: "Signature", t: "sign autograph name write handwriting pen", s: [
+  "signature": { l: "Signature", t: "sign autograph name handwriting pen", s: [
     ["s", [14,66],[20,44],[28,60],[36,44],[44,64],[52,54],[60,64],[66,40],[74,62],[84,34]],
     ["s", [12,82],[88,82]]
   ] },
-  "quote-left": { l: "Quote Left", t: "quotation mark open citation start text", s: [
+  "quote-left": { l: "Quote Left", t: "quotation mark open citation start", s: [
     ["c",28,44,12,1], ["s", [40,44],[34,70],[20,76]],
     ["c",62,44,12,1], ["s", [74,44],[68,70],[54,76]]
   ] },
-  "quote-right": { l: "Quote Right", t: "quotation mark close citation end text", s: [
+  "quote-right": { l: "Quote Right", t: "quotation mark close citation end", s: [
     ["c",72,44,12,1], ["s", [60,44],[66,70],[80,76]],
     ["c",38,44,12,1], ["s", [26,44],[32,70],[46,76]]
   ] },
-  "language": { l: "Language", t: "globe world translate international internet web", s: [
+  "language": { l: "Language", t: "globe world translate international web", s: [
     ["c",50,50,36,0],
     ["s", ["arc",50,50,16,36,0,360]],
     ["s", [14,50],[86,50]],
