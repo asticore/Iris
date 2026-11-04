@@ -1,7 +1,7 @@
 // node tools/test.js : engine + font export smoke test
 global.window = global.self = global;
 require('../web/data/glyphs-upper.js'); require('../web/data/glyphs-lower.js'); require('../web/data/glyphs-misc.js');
-require('../web/data/icons-ui.js'); require('../web/data/icons-general.js');
+require('fs').readdirSync(__dirname + '/../web/data').filter((f) => /^icons-/.test(f)).forEach((f) => require('../web/data/' + f));
 require('../web/js/data.js');
 global.opentype = require('opentype.js');
 const C = require('../web/js/core.js'); global.IrisCore = C;
@@ -20,7 +20,7 @@ const ib = opentype.parse(font.toArrayBuffer());
 assert.strictEqual(map.length, Object.keys(window.IRIS_ICONS).length);
 assert(ib.charToGlyph(String.fromCodePoint(0xe000)).path.commands.length > 5, 'icon outline');
 const css = X.iconCss('TestIcons', 't.otf', map);
-assert(/\.iris-heart::before\{content:"\\e0[0-9a-f]{2}"\}/.test(css), 'css rule');
+assert(/\.iris-heart::before\{content:"\\e[0-9a-f]{3}"\}/.test(css), 'css rule');
 const svg = C.composeSvg(C.iconPolys(window.IRIS_ICONS.heart, {}), { badge: 'circle', shadow: 'long' });
 assert(svg.startsWith('<svg') && svg.includes('clipPath'));
 console.log('ok: glyphs', Object.keys(window.IRIS_GLYPHS).length, 'icons', map.length, 'otf bytes', buf.byteLength);
