@@ -62,7 +62,7 @@
   "bucket": { l: "Bucket", t: "pail pot water container", s: [
     ["s",[20,36],[26,82],[74,82],[80,36]],
     ["s",[14,36],[86,36]],
-    ["s",["arc",50,40,36,30,180,360]],
+    ["s",["arc",50,40,36,26,180,360]],
     ["f",[23,52],[77,52],[76,64],[24,64],"z"]
   ] },
   "plug": { l: "Plug", t: "electric power socket cord outlet", s: [
@@ -210,9 +210,9 @@
     ["f",[58,44],[78,24],[88,34],[68,54],"z"]
   ] },
   "crowbar": { l: "Crowbar", t: "pry lever bar demolition tool", s: [
-    ["s",[22,84],[66,20]],
+    ["s",[22,82],[66,20]],
     ["s",[66,20],[80,14],[86,28]],
-    ["c",22,84,5,1]
+    ["c",22,82,5,1]
   ] },
   "wheelbarrow": { l: "Wheelbarrow", t: "cart barrow garden transport load", s: [
     ["s",[18,44],[84,44],[70,66],[36,66],"z"],
