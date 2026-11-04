@@ -1,7 +1,7 @@
 name: Deploy portal
 on:
   push:
-    branches: [main, claude/elegant-brown-nb42al]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
