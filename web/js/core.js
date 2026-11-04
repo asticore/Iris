@@ -123,11 +123,16 @@
     // shape
     weight: 8, cap: 'round', join: 'round', fillMode: 'outline', rotate: 0, flipH: false,
     // type only
-    serif: false, serifLen: 11, serifThick: 0.7, slant: 0, widthScale: 1, spacing: 0,
+    serif: false, serifLen: 11, serifThick: 0.7, contrast: 0, slant: 0, widthScale: 1, spacing: 0,
     // composition
     color: '#111827', badge: 'none', badgeColor: '#4f46e5', badgePad: 14, pad: 8,
     shadow: 'none', shadowColor: '#000000', shadowOpacity: 0.35, shadowAngle: 45, shadowLen: 6,
   };
+  const WEIGHT_CLASSES = [
+    { n: 100, name: 'Thin', w: 2.5 }, { n: 200, name: 'ExtraLight', w: 4 }, { n: 300, name: 'Light', w: 6 },
+    { n: 400, name: 'Regular', w: 8 }, { n: 500, name: 'Medium', w: 10 }, { n: 600, name: 'SemiBold', w: 12 },
+    { n: 700, name: 'Bold', w: 14.5 }, { n: 800, name: 'ExtraBold', w: 17 }, { n: 900, name: 'Black', w: 20 },
+  ];
   const withDefaults = (s) => Object.assign({}, DEFAULT_STYLE, s || {});
 
   // ---------- glyphs ----------
@@ -138,8 +143,7 @@
       const e = expand(s);
       return { pts: e.pts.map(([x, y]) => [x * ws, y]), closed: e.closed };
     });
-    const polys = [];
-    for (const s of strokes) polys.push(...strokePolys(s.pts, s.closed, st.weight, st.cap, st.join));
+    const pieces = strokes.map((s) => ({ pts: s.pts, closed: s.closed, w: st.weight, cap: st.cap, join: st.join }));
     if (st.serif) {
       const sl = st.serifLen, sw = Math.max(1, st.weight * st.serifThick);
       for (const s of strokes) {
@@ -150,9 +154,18 @@
           const dx = q[0] - p[0], dy = q[1] - p[1];
           if (!onGuide || Math.abs(dy) < Math.abs(dx) * 1.5) continue;
           // butt-ended slab so the serif sits flush on the guide line
-          polys.push(...strokePolys([[p[0] - sl, p[1]], [p[0] + sl, p[1]]], false, sw, 'butt', 'bevel'));
+          pieces.push({ pts: [[p[0] - sl, p[1]], [p[0] + sl, p[1]]], closed: false, w: sw, cap: 'butt', join: 'bevel' });
         }
       }
+    }
+    // contrast: stretch y, stroke, squash y -> horizontals get thinner than verticals (broad-nib look)
+    const k = 1 / (1 - Math.min(0.85, Math.max(0, st.contrast)));
+    const polys = [];
+    for (const pc of pieces) {
+      const pts = k === 1 ? pc.pts : pc.pts.map(([x, y]) => [x, BASELINE + (y - BASELINE) * k]);
+      let ps = strokePolys(pts, pc.closed, pc.w, pc.cap, pc.join);
+      if (k !== 1) ps = xf(ps, (x, y) => [x, BASELINE + (y - BASELINE) / k]);
+      polys.push(...ps);
     }
     // keep heavy weights inside the advance box
     const extra = Math.max(0, st.weight - 8);
@@ -301,7 +314,7 @@
   }
 
   return {
-    DEFAULT_STYLE, GUIDES, withDefaults, expand, strokePolys, glyphPolys, textPolys,
+    DEFAULT_STYLE, WEIGHT_CLASSES, GUIDES, withDefaults, expand, strokePolys, glyphPolys, textPolys,
     iconPolys, composeSvg, pathD, toFontContours, orient, area,
   };
 });

@@ -29,7 +29,7 @@ Object.assign(window.IRIS_GLYPHS = window.IRIS_GLYPHS || {}, {
 
 ## Icons (`web/data/icons-*.js`)
 ```js
-Object.assign(window.IRIS_ICONS = window.IRIS_ICONS || {}, {
+(window.IRIS_ICON_SETS = window.IRIS_ICON_SETS || {})["Category Name"] = ({
   heart: { l: "Heart", t: "love like favorite", s: [ ["f", [50,86],[14,48], ["arc",30,34,16,16,180,360], ["arc",70,34,16,16,180,360],[86,48],"z"] ] },
 });
 ```

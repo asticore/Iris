@@ -18,7 +18,10 @@ for (const [k, g] of Object.entries(window.IRIS_GLYPHS || {})) {
   if (!num(g.w) || !Array.isArray(g.s)) { console.error('bad glyph', k); bad++; continue; }
   g.s.forEach((s) => pts(s, 'glyph ' + k));
 }
-for (const [k, ic] of Object.entries(window.IRIS_ICONS || {})) {
+const all = {};
+const seen = {};
+for (const [setName, set] of Object.entries(window.IRIS_ICON_SETS || {})) for (const [k, ic] of Object.entries(set)) { if (all[k]) { console.error('DUP icon', k, 'in', setName, 'and', seen[k]); bad++; } all[k] = ic; seen[k] = setName; }
+for (const [k, ic] of Object.entries(Object.assign({}, window.IRIS_ICONS || {}, all))) {
   if (!/^[a-z0-9-]+$/.test(k) || !ic.l || !Array.isArray(ic.s) || !ic.s.length) { console.error('bad icon', k); bad++; continue; }
   for (const sh of ic.s) {
     const t = sh[0];
@@ -28,5 +31,5 @@ for (const [k, ic] of Object.entries(window.IRIS_ICONS || {})) {
     else { console.error('bad shape type', k, t); bad++; }
   }
 }
-console.log('glyphs:', Object.keys(window.IRIS_GLYPHS || {}).length, 'icons:', Object.keys(window.IRIS_ICONS || {}).length, bad ? 'ERRORS ' + bad : 'OK');
+console.log('glyphs:', Object.keys(window.IRIS_GLYPHS || {}).length, 'icons:', Object.keys(all).length, bad ? 'ERRORS ' + bad : 'OK');
 process.exit(bad ? 1 : 0);

@@ -16,16 +16,20 @@
     return path;
   }
 
-  function makeFont(family, glyphList) {
+  function makeFont(family, glyphList, meta) {
+    const m = meta || {};
     const notdef = new opentype.Glyph({ name: '.notdef', unicode: 0, advanceWidth: 600, path: new opentype.Path() });
-    return new opentype.Font({
-      familyName: family, styleName: 'Regular', unitsPerEm: 1000, ascender: 800, descender: -250,
-      glyphs: [notdef].concat(glyphList),
+    const font = new opentype.Font({
+      familyName: family, styleName: m.styleName || 'Regular', unitsPerEm: 1000, ascender: 800, descender: -250,
+      designer: m.designer || '', license: m.license || '', licenseURL: m.licenseURL || '', version: m.version || 'Version 1.000',
+      copyright: m.copyright || '', glyphs: [notdef].concat(glyphList),
     });
+    if (m.weightClass && font.tables && font.tables.os2) font.tables.os2.usWeightClass = m.weightClass;
+    return font;
   }
 
   // Typeface -> font. Every char in `glyphs` becomes a mapped glyph.
-  function buildTypeface(family, glyphs, style) {
+  function buildTypeface(family, glyphs, style, meta) {
     const list = [new opentype.Glyph({ name: 'space', unicode: 32, advanceWidth: Math.round(34 * style.widthScale * 10), path: new opentype.Path() })];
     const names = {};
     for (const [ch, g] of Object.entries(glyphs)) {
@@ -35,7 +39,15 @@
       names[ch] = 'uni' + ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0');
       list.push(new opentype.Glyph({ name: names[ch], unicode: ch.codePointAt(0), advanceWidth: Math.round(r.adv * 10), path: contoursToPath(contours) }));
     }
-    return makeFont(family, list);
+    return makeFont(family, list, meta);
+  }
+
+  // One font per weight class (Thin..Black) from the same style.
+  function buildFamily(family, glyphs, style, meta) {
+    return C.WEIGHT_CLASSES.map((wc) => ({
+      cls: wc,
+      font: buildTypeface(family, glyphs, Object.assign({}, style, { weight: wc.w }), Object.assign({}, meta, { styleName: wc.name, weightClass: wc.n })),
+    }));
   }
 
   // Icons -> font. PUA codepoints from U+E000.
@@ -74,12 +86,17 @@
     const inline = css.replace(/url\("[^"]+"\)/, `url(data:font/otf;base64,${b64(buf)})`);
     return `/* Iris kit (${fileLabel}) - add <script src="iris-kit.js"></script> and use <i class="iris iris-NAME"></i> */\n(function(){var s=document.createElement("style");s.setAttribute("data-iris","");s.textContent=${JSON.stringify(inline)};(document.head||document.documentElement).appendChild(s);})();\n`;
   }
-  function typeCss(family, file) {
-    return `/* Usage: <link rel="stylesheet" href="${slug(family)}.css"> then class="${slug(family)}" */\n@font-face{font-family:"${family}";src:url("${file}") format("opentype");font-weight:400;font-style:normal;font-display:swap}\n.${slug(family)}{font-family:"${family}",sans-serif}\n`;
+  const fileOf = (slug, wc) => `${slug}-${wc.name}.otf`;
+  function typeCss(family, slug, classes) {
+    let css = `/* ${family}: usage <link rel="stylesheet" href="${slug}.css"> then class="${slug}" and font-weight 100-900 */\n`;
+    for (const wc of classes) css += `@font-face{font-family:"${family}";src:url("${fileOf(slug, wc)}") format("opentype");font-weight:${wc.n};font-style:normal;font-display:swap}\n`;
+    return css + `.${slug}{font-family:"${family}",sans-serif}\n`;
   }
-  function typeKitJs(family, buf) {
-    const css = `@font-face{font-family:"${family}";src:url(data:font/otf;base64,${b64(buf)}) format("opentype");font-display:swap}.${slug(family)}{font-family:"${family}",sans-serif}`;
-    return `/* ${family} kit - add <script src="${slug(family)}-kit.js"></script>, then class="${slug(family)}" */\n(function(){var s=document.createElement("style");s.textContent=${JSON.stringify(css)};(document.head||document.documentElement).appendChild(s);})();\n`;
+  function typeKitJs(family, slug, fam) {
+    let css = '';
+    for (const { cls, font } of fam) css += `@font-face{font-family:"${family}";src:url(data:font/otf;base64,${b64(font.toArrayBuffer())}) format("opentype");font-weight:${cls.n};font-display:swap}`;
+    css += `.${slug}{font-family:"${family}",sans-serif}`;
+    return `/* ${family} kit (all weights) - add <script src="${slug}-kit.js"></script>, then class="${slug}" */\n(function(){var s=document.createElement("style");s.textContent=${JSON.stringify(css)};(document.head||document.documentElement).appendChild(s);})();\n`;
   }
 
   function iconSprite(icons, style) {
@@ -124,11 +141,11 @@
     if (kind === 'icons') {
       return `<!doctype html><meta charset="utf-8"><title>${family} demo</title><link rel="stylesheet" href="iris.css">\n<style>body{font:16px sans-serif;padding:24px}.g{display:grid;grid-template-columns:repeat(auto-fill,120px);gap:12px}.g div{text-align:center;font-size:12px}.g i{font-size:32px;display:block;margin-bottom:6px}</style>\n<h1>${family}</h1>\n<p>Font: <code>&lt;i class="iris iris-heart"&gt;&lt;/i&gt;</code> &middot; SVG sprite: <code>&lt;svg&gt;&lt;use href="iris-sprite.svg#heart"/&gt;&lt;/svg&gt;</code></p>\n<div class="g">${names.map((n) => `<div><i class="iris iris-${n}"></i>${n}</div>`).join('')}</div>`;
     }
-    return `<!doctype html><meta charset="utf-8"><title>${family} demo</title><link rel="stylesheet" href="${slug(family)}.css">\n<body class="${slug(family)}" style="padding:24px"><h1 style="font-size:64px">${family}</h1><p style="font-size:32px">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 .,!?&amp;@#</p>`;
+    return `<!doctype html><meta charset="utf-8"><title>${family} demo</title><link rel="stylesheet" href="${slug(family)}.css">\n<body class="${slug(family)}" style="padding:24px"><h1 style="font-size:64px;font-weight:400">${family}</h1>\n${[100, 200, 300, 400, 500, 600, 700, 800, 900].map((w) => `<p style="font-size:28px;margin:6px 0;font-weight:${w}">${w} &mdash; ABCDEFGHIJKLM nopqrstuvwxyz 0123456789 .,!?&amp;@#</p>`).join('\n')}`;
   }
 
   root.IrisExport = {
-    slug, buildTypeface, buildIconFont, fontBytes, iconCss, kitJs, typeCss, typeKitJs, iconSprite,
+    slug, fileOf, buildFamily, buildTypeface, buildIconFont, fontBytes, iconCss, kitJs, typeCss, typeKitJs, iconSprite,
     svgToBlob, download, demoHtml,
   };
 })(typeof self !== 'undefined' ? self : this);

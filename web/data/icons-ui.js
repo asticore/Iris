@@ -1,4 +1,4 @@
-Object.assign(window.IRIS_ICONS = window.IRIS_ICONS || {}, {
+(window.IRIS_ICON_SETS = window.IRIS_ICON_SETS || {})["Interface"] = ({
   "home": { l: "Home", t: "house main start building", s: [
     ["s", [22,48],[50,20],[78,48]],
     ["s", [30,40],[30,82],[70,82],[70,40]],

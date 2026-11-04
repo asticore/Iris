@@ -1,4 +1,4 @@
-Object.assign(window.IRIS_ICONS = window.IRIS_ICONS || {}, {
+(window.IRIS_ICON_SETS = window.IRIS_ICON_SETS || {})["General"] = ({
   sun: { l: "Sun", t: "weather day light bright sunny", s: [
     ["c", 50, 50, 14, 0],
     ["s", [50, 18], [50, 26]], ["s", [50, 74], [50, 82]],
@@ -112,13 +112,6 @@ Object.assign(window.IRIS_ICONS = window.IRIS_ICONS || {}, {
   music: { l: "Music", t: "note sound song audio melody", s: [
     ["c", 34, 70, 10, 1], ["c", 70, 60, 10, 1],
     ["s", [44, 70], [44, 20], [80, 12], [80, 60]]
-  ] },
-  play: { l: "Play", t: "start video media triangle resume", s: [
-    ["s", [32, 22], [80, 50], [32, 78], "z"]
-  ] },
-  pause: { l: "Pause", t: "stop wait media hold", s: [
-    ["r", 30, 22, 14, 56, 0],
-    ["r", 56, 22, 14, 56, 0]
   ] },
   mic: { l: "Microphone", t: "record voice audio podcast speak", s: [
     ["r", 38, 12, 24, 44, 0],
