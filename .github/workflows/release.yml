@@ -1,0 +1,31 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to release (e.g. v0.1.0)
+        required: true
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.inputs.tag || github.ref_name }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - run: npm ci && npm run check
+      - name: Package portal
+        run: |
+          mkdir -p dist
+          (cd web && zip -qr "../dist/iris-portal-${TAG}.zip" . -x '.nojekyll')
+      - name: Create release
+        run: |
+          notes="docs/releases/${TAG}.md"
+          if [ -f "$notes" ]; then n="--notes-file $notes"; else n="--generate-notes"; fi
+          gh release create "$TAG" "dist/iris-portal-${TAG}.zip" --title "Iris ${TAG}" $n
