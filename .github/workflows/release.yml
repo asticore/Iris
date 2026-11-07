@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing tag to release (e.g. v0.1.0)
+        description: Tag to create and release from the selected ref (e.g. v0.1.0)
         required: true
 permissions:
   contents: write
@@ -17,8 +17,6 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ env.TAG }}
       - run: npm ci && npm run check
       - name: Package portal
         run: |
@@ -28,4 +26,4 @@ jobs:
         run: |
           notes="docs/releases/${TAG}.md"
           if [ -f "$notes" ]; then n="--notes-file $notes"; else n="--generate-notes"; fi
-          gh release create "$TAG" "dist/iris-portal-${TAG}.zip" --title "Iris ${TAG}" $n
+          gh release create "$TAG" "dist/iris-portal-${TAG}.zip" --title "Iris ${TAG}" --target "$GITHUB_SHA" $n
